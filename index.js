@@ -8,53 +8,80 @@ const promptUser = () => {
     return inquirer.prompt ([
         {
             type: "input",
-            name: "projectTitle",
-            message: "What is the title of the project?"
+            name: "title",
+            message: "What is the title of the project?",
+            validate: function(answer) {
+                if (answer.length < 1) {
+                    return console.log("You must enter a valid title.")
+                }
+                return true;
+            },
         },
         {
             type: "input",
-            name: "projectDescription",
+            name: "description",
             message: "Please describe the project.",
+            validate: function(answer) {
+                if (answer.length < 1) {
+                    return console.log("You must enter a valid description.")
+                }
+                return true;
+            },
         },
         {
             type: "input",
-            name: "projectInstall",
+            name: "install",
             message: "What are the steps required to install this project?",
         },
         {
             type: "input",
-            name: "projectUsage",
+            name: "usage",
             message: "Please provide examples for use.",
         },
         {
             type: "list",
-            name: "projectLicense",
+            name: "license",
             message: "Choose a license type, to let other developers know what they can & cannot do with this project.",
             choices: [
-                "GNU AGPLv3",
-                "GNU GPLv3",
-                "GNU LGPLv3",
-                "Mozilla Public License 2.0",
-                "Apache License 2.0",
-                "MIT License",
-                "Boost Software License 1.0",
-                "The Unlicense",
+                "None",
+                "NGPL-3.0",
+                "GPL-3.0",
+                "LGPL-3.0",
+                "MPL-2.0",
+                "Apache-2.0",
+                "MIT",
+                "BSL-1.0",
+                "Unlicense",
             ],
         },
         {
             type: "input",
-            name: "projectCollab",
+            name: "collab",
             message: "Please list any other collaborators. If none, leave blank.",
         },
         {
             type: "input",
-            name: "githubUsername",
+            name: "github",
             message: "Please enter your GitHub username.",
+            validate: function(answer) {
+                if (answer.length < 1) {
+                    return console.log("You must enter a valid GitHub username.")
+                }
+                return true;
+            },
+
         },
         {
             type: "input",
-            name: "emailAddress",
+            name: "email",
             message: "Please enter your email address.",
+            validate: function(answer) {
+                if (answer.length < 1) {
+                    return console.log("You must enter a valid email address.")
+                }
+                return true;
+            },
+
         },
     ])
 }
