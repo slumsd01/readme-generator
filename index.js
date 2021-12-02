@@ -1,68 +1,82 @@
 // TODO: Include packages needed for this application
-var inquirer = require('inquirer');
+const inquirer = require('inquirer');
+const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // TODO: Create an array of questions for user input
-const questions = [
-    {
-        type: "input",
-        name: "projectTitle",
-        message: "What is the title of the project?"
-    },
-    {
-        type: "input",
-        name: "projectDescription",
-        message: "Please enter a description of this project."
-    },
-    {
-        type: "input",
-        name: "projectInstall",
-        message: "What are the steps required to install this project?"
-    },
-    {
-        type: "input",
-        name: "projectUsage",
-        message: "Please provide instructions & examples for use."
-    },
-    {
-        type: "list",
-        name: "projectLicense",
-        message: "Choose a license type, to let other developers know what they can & cannot do with this project.", 
-        choices: ["Apache", "Academic", "GNU", "ISC", "MIT", "Mozilla", "Open"]
-    },
-    {
-        type: "input",
-        name: "projectCollaborators",
-        message: "Please list your collaborators, if any."
-    },
-    {
-        type: "confirm",
-        name: "projectTest",
-        message: "Is there a test included?"
-    },
-    {
-        type: "input",
-        name: "projectQuestions",
-        message: "What should a developer do if they have an issue?"
-    },
-    {
-        type: "input",
-        name: "githubUsername",
-        message: "Please enter your GitHub username."
-    },
-    {
-        type: "input",
-        name: "emailAddress",
-        message: "Please enter your email address."
-    },
-];
+const promptUser = () => {
+    return inquirer.prompt ([
+        {
+            type: "input",
+            name: "projectTitle",
+            message: "What is the title of the project?"
+        },
+        {
+            type: "input",
+            name: "projectDescription",
+            message: "Please describe the project.",
+        },
+        {
+            type: "input",
+            name: "projectInstall",
+            message: "What are the steps required to install this project?",
+        },
+        {
+            type: "input",
+            name: "projectUsage",
+            message: "Please provide examples for use.",
+        },
+        {
+            type: "list",
+            name: "projectLicense",
+            message: "Choose a license type, to let other developers know what they can & cannot do with this project.",
+            choices: [
+                "GNU AGPLv3",
+                "GNU GPLv3",
+                "GNU LGPLv3",
+                "Mozilla Public License 2.0",
+                "Apache License 2.0",
+                "MIT License",
+                "Boost Software License 1.0",
+                "The Unlicense",
+            ],
+        },
+        {
+            type: "input",
+            name: "projectCollab",
+            message: "Please list any other collaborators. If none, leave blank.",
+        },
+        {
+            type: "input",
+            name: "githubUsername",
+            message: "Please enter your GitHub username.",
+        },
+        {
+            type: "input",
+            name: "emailAddress",
+            message: "Please enter your email address.",
+        },
+    ])
+}
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+        if (err)
+          return console.log(err);
+        else {
+          console.log("File written successfully - README.md");
+        }
+    })
+}
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(questions)
-    .then((answers) => console.log(answers))
+    promptUser()
+    .then(answers => {
+        generateMarkdown(answers)
+        writeToFile("README.md", generateMarkdown(answers))
+    })
 }
 
 // Function call to initialize app
