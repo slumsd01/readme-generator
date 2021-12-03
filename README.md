@@ -7,11 +7,15 @@
 
   ## Table of Contents
   * [Installation](#installation)
+  * [Usage](#usage)
   * [Questions](#questions)
 
   ## Installation
 
-  Inquirer and Node.js npms were used in creating this project.  
+  Inquirer and Node.js npms were used in creating this project. 
+  
+  ## Usage
+  https://user-images.githubusercontent.com/90315740/144527988-8123730c-c9b9-4846-a0a7-0bf670b6b935.mp4
   
   ## Questions?
   
